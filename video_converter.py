@@ -121,7 +121,7 @@ def video_to_loop():
 
 
 @calculate_runtime
-def run():
+def main():
     check_folder_path()
     check_video()
     video_ready()
@@ -131,4 +131,4 @@ def run():
 
 
 if __name__ == '__main__':
-    run()
+    main()

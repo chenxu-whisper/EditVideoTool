@@ -63,12 +63,12 @@ def video_check():
         color_print(f'****** 发生未知错误: {e} ******', log.error)
 
 
-def run():
+def main():
     video_check()
 
 
 if __name__ == '__main__':
-    run()
+    main()
 
 
 print('...................')
