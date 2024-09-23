@@ -22,9 +22,9 @@ def check_folder_path():
     for folder_path in folder_paths:
         if not os.path.exists(folder_path):
             os.makedirs(folder_path)
-            color_print(f'***** 文件夹 {folder_path} 已创建 ******', log.success)
+            log_success(f'***** 文件夹 {folder_path} 已创建 ******')
         else:
-            print(f'****** 文件夹 {folder_path} 已存在 ******', log.info)
+            log_info(f'****** 文件夹 {folder_path} 已存在 ******')
 
 
 def check_video():
@@ -47,7 +47,7 @@ def video_convert():
     vertical_video = 0
 
     if len(video_list) == 0:
-        return color_print('****** 没有要处理的视频，请检查 ******', log.warning)
+        return log_warning('****** 没有要处理的视频，请检查 ******')
 
     for video in video_list:
         source_video = VideoFileClip(input_path + video)
@@ -58,8 +58,7 @@ def video_convert():
             output_horizontal_4k(source_video, output_horizontal_path + video_name + '_4k' + xr.video_extension)
             horizontal_video = horizontal_video + 1
 
-            output_horizontal_to_vertical_1080p(source_video,
-                                                output_horizontal_to_vertical_path + video_name + '_1080p' + xr.video_extension)
+            output_horizontal_to_vertical_1080p(source_video, output_horizontal_to_vertical_path + video_name + '_1080p' + xr.video_extension)
             vertical_video = vertical_video + 1
 
         if (source_video.size == list(xr.video_1080P)) or (source_video.size == list(xr.video_2160P)):
@@ -68,7 +67,7 @@ def video_convert():
 
         source_video.close()
 
-    color_print(f'****** 共输出 {horizontal_video} 个横板视频和 {vertical_video} 个竖版视频 ******', log.success)
+    log_success(f'****** 共输出 {horizontal_video} 个横板视频和 {vertical_video} 个竖版视频 ******')
 
 
 def video_to_icon():
@@ -81,7 +80,7 @@ def video_to_icon():
 
         source_video.close()
         horizontal_icon = horizontal_icon + 1
-    color_print(f'****** 成功导出 {horizontal_icon} 张基于横板视频的缩略图 ******', log.success)
+    log_success(f'****** 成功导出 {horizontal_icon} 张基于横板视频的缩略图 ******')
 
     vertical_icon = 0
     for video in os.listdir(output_vertical_path):
@@ -90,9 +89,9 @@ def video_to_icon():
                              output_icon_path + os.path.splitext(video)[0] + '_icon' + xr.icon_extension[0])  # .png
         source_video.close()
         vertical_icon = vertical_icon + 1
-    color_print(f'****** 成功导出 {vertical_icon} 张基于竖板视频的缩略图 ******', log.success)
+    log_success(f'****** 成功导出 {vertical_icon} 张基于竖板视频的缩略图 ******')
 
-    color_print(f'****** 共输出 {vertical_icon + vertical_icon} 张缩略图 ******', log.success)
+    log_success(f'****** 共输出 {vertical_icon + vertical_icon} 张缩略图 ******')
 
 
 def video_to_loop():
@@ -105,19 +104,7 @@ def video_to_loop():
         video_loop_count = video_loop_count + 1
         source_video.close()
 
-    color_print(f'****** 共输出 {video_loop_count} 循环视频， ******', log.success)
-
-
-''' test '''
-# path = r'C:/Users/Admin/Desktop/nonstandard/'
-# done = r'C:/Users/Admin/Desktop/done/'
-# for video in os.listdir(path):
-#     video_name = os.path.splitext(video)[0]
-#     source_video = VideoFileClip(path + video)
-#     video_clip = source_video.resize(xr.video_1080P)
-#     print(video_name)
-#     video_clip.write_videofile(done + video_name + '_1080' + xr.video_extension, fps=xr.fps, codec=xr.codec)
-#     source_video.close()
+    log_success(f'****** 共输出 {video_loop_count} 循环视频， ******')
 
 
 @calculate_runtime

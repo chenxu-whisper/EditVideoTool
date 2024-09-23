@@ -1,7 +1,7 @@
 import shutil
 import cv2
 from moviepy.editor import *
-from utils.logger import *
+from utils.logger import log_success, log_warning,log_info,log_error
 from xr_fomat import *
 
 
@@ -24,7 +24,7 @@ def modify_video_extension(video_path:str, file_extension:str) ->None:
             change_extension = os.path.splitext(video)[0] + file_extension
             os.rename(os.path.join(video_path, video), os.path.join(video_path, change_extension))
 
-    color_print('****** 视频拓展名已转成mp4格式 ******', log.success)
+    log_success('****** 视频拓展名已转成mp4格式 ******')
 
 
 def check_horizontal_videos(video_path:str) ->None:
@@ -35,8 +35,7 @@ def check_horizontal_videos(video_path:str) ->None:
         source_video = VideoFileClip(video_path + video)
 
         if source_video.size != list(xr.video_4k):
-            color_print(f'****** {source_video.filename} 视频分辨率不是4k，此分辨率为：{source_video.size} ******',
-                        log.warning)
+            log_warning(f'****** {source_video.filename} 视频分辨率不是4k，此分辨率为：{source_video.size} ******')
             source_video.close()
 
 
@@ -48,8 +47,7 @@ def check_vertical_videos(video_path:str) ->None:
         source_video = VideoFileClip(video_path + video)
 
         if (source_video.size != list(xr.video_1080P)) and (source_video.size != list(xr.video_2160P)):
-            color_print(f'****** {source_video.filename} 视频宽长比不是9:16， 此分辨率为：{source_video.size} ******',
-                        log.warning)
+            log_warning(f'****** {source_video.filename} 视频宽长比不是9:16， 此分辨率为：{source_video.size} ******')
             source_video.close()
 
 
@@ -65,8 +63,7 @@ def check_video_format(video_path:str, error_path:str) ->None:
         # if source_video.size != list(xr.video_1080P):
         if source_video.size != list(xr.video_4k) and source_video.size != list(
                 xr.video_1080P) and source_video.size != list(xr.video_2160P):
-            color_print(f'****** {source_video.filename} 视频分辨率不合规， 此分辨率为：{source_video.size} ******',
-                        log.warning)
+            log_warning(f'****** {source_video.filename} 视频分辨率不合规， 此分辨率为：{source_video.size} ******')
             error_list.append(video)
 
         source_video.close()
@@ -76,15 +73,15 @@ def check_video_format(video_path:str, error_path:str) ->None:
             for error in error_list:
                 shutil.move(os.path.join(video_path, error), os.path.join(error_path, error))
 
-        color_print(f'****** 有 {len(error_list)} 条视频不合规 ******', log.warning)
-        color_print(f'****** 不合规的视频已移动至{error_path}文件夹中 ******', log.success)
+        log_warning(f'****** 有 {len(error_list)} 条视频不合规 ******')
+        log_success(f'****** 不合规的视频已移动至{error_path}文件夹中 ******')
 
     except FileNotFoundError as e:
-        color_print(f'****** 未找到源文件或文件夹: {e} ******', log.error)
+        log_error(f'****** 未找到源文件或文件夹: {e} ******')
     except shutil.Error as e:
-        color_print(f'****** 移动文件时出错: {e} ******', log.error)
+        log_error(f'****** 移动文件时出错: {e} ******')
     except Exception as e:
-        color_print(f'****** 发生未知错误: {e} ******', log.error)
+        log_error(f'****** 发生未知错误: {e} ******')
 
 
 ''' convert video '''

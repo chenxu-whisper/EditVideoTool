@@ -14,32 +14,20 @@ class TextColors:
     UNDERLINE = '\033[4m'
 
 
-class Log:
-    success = 'green'
-    error = 'red'
-    warning = 'yellow'
-    info = 'white'
+def log_success(text: str) -> None:
+    return print(TextColors.GREEN + text)
 
 
-text_color = TextColors()
-log = Log()
+def log_info(text: str) -> None:
+    return print(TextColors.WHITE + text)
 
 
-def color_print(text:str, color:TextColors) -> None:
-    if color == log.success:
-        return print(TextColors.GREEN + text + text_color.WHITE)
-    if color == log.warning:
-        return print(TextColors.YELLOW + text + text_color.WHITE)
-    if color == log.error:
-        return print(TextColors.RED + text + text_color.WHITE)
-    if color == log.info:
-        return print(TextColors.WHITE + text + text_color.WHITE)
-    if color == 'cyan':
-        return print(TextColors.CYAN + text + text_color.WHITE)
-    if color == 'blue':
-        return print(TextColors.BLUE + text + text_color.WHITE)
-    if color == 'magenta':
-        return print(TextColors.MAGENTA + text + text_color.WHITE)
+def log_error(text: str) -> None:
+    return print(TextColors.RED + text)
+
+
+def log_warning(text: str) -> None:
+    return print(TextColors.YELLOW + text)
 
 
 if __name__ == '__main__':
