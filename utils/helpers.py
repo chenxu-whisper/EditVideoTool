@@ -1,5 +1,5 @@
 import time
-from utils.logger import *
+from utils.logger import log_info
 
 
 def calculate_runtime(func):
@@ -11,9 +11,13 @@ def calculate_runtime(func):
         execution_time = end_time - start_time
         minutes = int(execution_time // 60)
         seconds = int(execution_time % 60)
-        color_print(f'*** 所有视频转换成功，共用时{minutes}分{seconds}秒 ***', log.info)
+        log_info(f'*** 共用时{minutes}分{seconds}秒 ***')
 
     return wrapper
+
+
+def get_time() -> None:
+    print(time.strftime('%x (%d/%m/%y)')) # 09/23/24 (23/09/24)
 
 
 if __name__ == '__main__':
