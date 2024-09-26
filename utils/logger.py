@@ -1,5 +1,8 @@
 """ Print color text """
-
+__all__ = ['log_success',
+           'log_info',
+           'log_warning',
+           'log_error']
 
 class TextColors:
     HEADER = '\033[95m'

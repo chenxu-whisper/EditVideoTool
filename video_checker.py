@@ -1,9 +1,10 @@
+import logging
 import os
 import sys
 import shutil
 from moviepy.editor import VideoFileClip
 from utils.video_tool import check_video_encoding
-from utils.logger import log_success, log_warning,log_info,log_error
+from utils.logger import *
 from xr_fomat import xr
 
 BASE_DIR = os.path.dirname(sys.argv[0])
@@ -32,7 +33,8 @@ def video_check():
                 error_set.add(source_video.filename)
 
             if check_video_encoding(video) != xr.video_codec:
-                log_warning(f'****** {source_video.filename}视频编码不合规， 此编码为：{check_video_encoding(video)} ******')
+                log_warning(
+                    f'****** {source_video.filename}视频编码不合规， 此编码为：{check_video_encoding(video)} ******')
                 error_set.add(source_video.filename)
 
             source_video.close()
@@ -66,7 +68,6 @@ def main():
 
 if __name__ == '__main__':
     main()
-
 
 print('...................')
 input("按回车键退出...")

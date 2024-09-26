@@ -1,6 +1,8 @@
 import time
 from utils.logger import log_info
 
+__all__ = ['calculate_runtime',
+           'get_time']
 
 def calculate_runtime(func):
 
